@@ -1,3 +1,34 @@
 <template>
-  <h1>${message}</h1>
+  <require from="bootstrap/css/bootstrap.css"></require>
+  <require from="./styles.css"></require>
+  <require from="./news-item"></require>
+
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <h1>${siteName}</h1>
+
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li repeat.for="category of categories"><a href="/category?itemId=${category.id}">${category.name}<a></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+   <div class="container">
+     <div class="row">
+      <news-item repeat.for="item of newsItems" text.bind="item.text" link.bind="item.link" blurb.bind="item.blurb"></news-item>
+     </div>
+  </div>
 </template>

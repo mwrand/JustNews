@@ -1,0 +1,12 @@
+<template>
+    <div class="news-item col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="${link}"><span class="glyphicon glyphicon-link"></span> ${text}</a>
+            </div>
+            <div class="panel-body" if.bind="blurb">
+                <p>${blurb}</p>
+            </div>
+        </div>
+    </div>
+</template>
