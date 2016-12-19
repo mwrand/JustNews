@@ -1,7 +1,6 @@
 import {inject, Behavior} from 'aurelia-framework';
 import {WebAPI} from './web-api'
 
-
 @inject(WebAPI)
 export class App {
   constructor(api) {    
@@ -9,6 +8,21 @@ export class App {
     this.categories = []
     this.newsItems = []
     this.siteName = 'Just News'
+    
+    console.log("constructor: app");
+  }
+
+  configureRouter(config, router){
+    console.log("configureRouter");
+
+    config.title = 'Just News';
+
+    config.map([
+      { route: ['','home'],  name: 'home', moduleId: './home',  nav: true, title:'Home' },
+      { route: 'categories/:id',  moduleId: './categories', name:'Categories' }
+      ]);
+
+      this.router = router;
   }
 
   created() {

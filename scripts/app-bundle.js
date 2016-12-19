@@ -22,7 +22,19 @@ define('app',['exports', 'aurelia-framework', './web-api'], function (exports, _
       this.categories = [];
       this.newsItems = [];
       this.siteName = 'Just News';
+
+      console.log("constructor: app");
     }
+
+    App.prototype.configureRouter = function configureRouter(config, router) {
+      console.log("configureRouter");
+
+      config.title = 'Just News';
+
+      config.map([{ route: ['', 'home'], name: 'home', moduleId: './home', nav: true, title: 'Home' }, { route: 'categories/:id', moduleId: './categories', name: 'Categories' }]);
+
+      this.router = router;
+    };
 
     App.prototype.created = function created() {
       var _this = this;
@@ -401,8 +413,8 @@ define('resources/index',["exports"], function (exports) {
 define('categories',[], function () {
   "use strict";
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\n  <require from=\"./styles.css\"></require>\n  <require from=\"./news-item\"></require>\n\n  <nav class=\"navbar navbar-default navbar-static-top\">\n    <div class=\"container\">\n      <div class=\"container-fluid\">\n      <!-- Brand and toggle get grouped for better mobile display -->\n        <div class=\"navbar-header\">\n          <h1>${siteName}</h1>\n\n          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n          <span class=\"sr-only\">Toggle navigation</span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n        </button>\n        </div>\n\n        <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n          <ul class=\"nav navbar-nav\">\n            <li repeat.for=\"category of categories\"><a href=\"/category?itemId=${category.id}\">${category.name}<a></a></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n  </nav>\n   <div class=\"container\">\n     <div class=\"row\">\n      <news-item repeat.for=\"item of newsItems\" text.bind=\"item.text\" link.bind=\"item.link\" blurb.bind=\"item.blurb\"></news-item>\n     </div>\n  </div>\n</template>\n"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\n  <require from=\"./styles.css\"></require>\n  <require from=\"./news-item\"></require>\n\n  <nav class=\"navbar navbar-default navbar-static-top\">\n    <div class=\"container\">\n      <div class=\"container-fluid\">\n      <!-- Brand and toggle get grouped for better mobile display -->\n        <div class=\"navbar-header\">\n          <h1>${siteName}</h1>\n\n          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n          <span class=\"sr-only\">Toggle navigation</span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n        </button>\n        </div>\n\n        <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n          <ul class=\"nav navbar-nav\">\n            <li repeat.for=\"category of categories\"><a href=\"/category?id=${category.id}\">${category.name}<a></a></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n  </nav>\n   <div class=\"container\">\n     <div class=\"row\">\n      <news-item repeat.for=\"item of newsItems\" text.bind=\"item.text\" link.bind=\"item.link\" blurb.bind=\"item.blurb\"></news-item>\n     </div>\n  </div>\n</template>\n"; });
 define('text!styles.css', ['module'], function(module) { module.exports = "section {\n  margin: 0 20px;\n}\n\na:focus {\n  outline: none;\n}\n\n.navbar-nav li.loader {\n    margin: 12px 24px 0 6px;\n}\n\n.no-selection {\n  margin: 20px;\n}\n\n.contact-list {\n  overflow-y: auto;\n  border: 1px solid #ddd;\n  padding: 10px;\n}\n\n.panel {\n  margin: 20px;\n}\n\n.button-bar {\n  right: 0;\n  left: 0;\n  bottom: 0;\n  border-top: 1px solid #ddd;\n  background: white;\n}\n\n.button-bar > button {\n  float: right;\n  margin: 20px;\n}\n\nli.list-group-item {\n  list-style: none;\n}\n\nli.list-group-item > a {\n  text-decoration: none;\n}\n\nli.list-group-item.active > a {\n  color: white;\n}\n\n.navbar-header h1 {\n  margin-right: 10px;\n}\n"; });
 define('text!news-item.html', ['module'], function(module) { module.exports = "<template>\r\n    <div class=\"news-item col-md-4\">\r\n        <div class=\"panel panel-default\">\r\n            <div class=\"panel-heading\">\r\n                <a href=\"${link}\"><span class=\"glyphicon glyphicon-link\"></span> ${text}</a>\r\n            </div>\r\n            <div class=\"panel-body\" if.bind=\"blurb\">\r\n                <p>${blurb}</p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</template>"; });
-define('text!categories.html', ['module'], function(module) { module.exports = ""; });
+define('text!categories.html', ['module'], function(module) { module.exports = "<template>\r\n\r\n    <require from=\"bootstrap/css/bootstrap.css\"></require>\r\n    <require from=\"./styles.css\"></require>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <h1>Categories</h1>\r\n        </div>\r\n    </div>\r\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map
